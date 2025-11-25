@@ -117,7 +117,15 @@ const animeContainer = document.getElementById("animeList");
 const searchInput = document.getElementById("searchInput");
 const genreFilter = document.getElementById("genreFilter");
 
-// Ambil semua genre unik untuk isi dropdown
+// Elemen detail
+const detailPanel = document.getElementById("detailPanel");
+const detailImage = document.getElementById("detailImage");
+const detailTitle = document.getElementById("detailTitle");
+const detailMeta = document.getElementById("detailMeta");
+const detailGenres = document.getElementById("detailGenres");
+const detailSynopsis = document.getElementById("detailSynopsis");
+
+// Isi dropdown genre
 function populateGenreFilter() {
   const genreSet = new Set();
   animeList.forEach((anime) => {
@@ -131,6 +139,25 @@ function populateGenreFilter() {
     option.textContent = genre;
     genreFilter.appendChild(option);
   });
+}
+
+// TAMPILKAN DETAIL (dipanggil saat card diklik)
+function showDetail(anime) {
+  detailImage.src = anime.cover;
+  detailImage.alt = anime.title;
+  detailTitle.textContent = anime.title;
+
+  detailMeta.textContent = `${anime.type} • ${anime.year} • ⭐ ${anime.rating}`;
+  detailGenres.textContent = `Genre: ${anime.genres.join(", ")}`;
+  detailSynopsis.textContent = anime.synopsis;
+
+  // Buka panel kalau masih hidden
+  if (detailPanel.hasAttribute("hidden")) {
+    detailPanel.removeAttribute("hidden");
+  }
+
+  // Scroll dikit ke panel detail biar kelihatan
+  detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // Render card anime
@@ -161,6 +188,11 @@ function renderAnime(list) {
       </div>
     `;
 
+    // KALAU CARD DI-KLIK -> GANTI DETAIL
+    card.addEventListener("click", () => {
+      showDetail(anime);
+    });
+
     animeContainer.appendChild(card);
   });
 }
@@ -178,6 +210,11 @@ function applyFilters() {
   });
 
   renderAnime(filtered);
+
+  // Kalau masih ada anime setelah filter, set detail ke anime pertama
+  if (filtered.length > 0) {
+    showDetail(filtered[0]);
+  }
 }
 
 // Event listeners
@@ -187,3 +224,8 @@ genreFilter.addEventListener("change", applyFilters);
 // Init
 populateGenreFilter();
 renderAnime(animeList);
+
+// Set awal: tampilkan detail anime pertama
+if (animeList.length > 0) {
+  showDetail(animeList[0]);
+}
