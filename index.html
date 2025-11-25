@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daftar Anime Semua Genre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Daftar Anime Semua Genre</h1>
+    <p>Project gede: katalog anime dengan pencarian & filter genre</p>
+  </header>
+
+  <section class="controls">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Cari anime berdasarkan judul..."
+    />
+
+    <select id="genreFilter">
+      <option value="all">Semua Genre</option>
+      <!-- genre lain diisi dari JS -->
+    </select>
+  </section>
+
+  <main>
+    <div id="animeList" class="anime-grid">
+      <!-- Card anime diisi lewat JavaScript -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 AnimeList Project – Dibuat untuk belajar web developer</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
